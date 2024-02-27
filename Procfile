@@ -1,1 +1,1 @@
-web: gunicorn -b :5000 wsgi:app --log-file=- --reload --access-logfile=- --workers=2 --threads=4 --worker-class=gthread
+web: gunicorn -b :8080 wsgi:app --config gunicorn_config.py --log-file=- --reload --access-logfile=- --workers=1 --threads=2 --worker-class=gthread
