@@ -1,0 +1,1 @@
+web: gunicorn -b :5000 wsgi:app --log-file=- --reload --access-logfile=- --workers=2 --threads=4 --worker-class=gthread
