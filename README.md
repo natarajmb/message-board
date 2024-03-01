@@ -3,23 +3,56 @@
 This is a friendly message board flask application. Its python learning project from here https://realpython.com/flask-project/.
 Application is exactly from tutorial expect that underlying database has been changed from SQLite to PostgresSQL
 
-## Pre-requisites
+Application can be run locally or remotely on Kubernetes cluster. Remote run has dependency on Tanzu Application Platform.
+
+## Running on Tanzu Application Platform (TAP)
+
+### Pre-requisites
+
+- Tanzu CLI 
+- kubectl
+- Tilt
+- Optional IntelliJ or VSCode (Tanzu Plugins) for debugging
+- Class Claim (database to bind) 
+
+Configured access to Kubernetes cluster running TAP.
+
+#### Create Claim
+
+````bash
+tanzu service class-claim create pgsql-1 --class postgresql-unmanaged --parameter storageGB=1
+````
+
+#### Run the application
+
+````bash
+tilt up
+````
+Follow the output from `tilt up` and browse the app. 
+
+If you are using either Intellij or VSCode you can right-click on the project space and run `Tanzu Live Update`, which
+will start the tilt process similar to `tilt up` but you have nicer dashboards to dig deep in.  
+
+
+## Running Locally
+
+### Pre-requisites
 
 - PostgresSQL  
 - Environment file (.env)
 
-### Start database service
+#### Start database service
 
 Run postgres as docker container
 ````bash
 docker run --name message-board-postgres -e POSTGRES_USER=board_user -e POSTGRES_DB=board -e POSTGRES_PASSWORD=secret! -p 5432:5432 -d postgres
 ````
-### Create environment file 
+#### Create environment file 
 
 Copy the `env_sample` file and update it with your environment properties
 
 
-## Building & Running an app
+### Building & Running an app
 
 Create a python virtual environment
 ````bash
@@ -48,7 +81,7 @@ python -m flask --app board run
 ````
 
 
-## Miscellaneous commands
+### Miscellaneous commands
 
 To export out installed packages to requirements.txt
 ````bash
