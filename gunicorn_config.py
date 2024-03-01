@@ -1,7 +1,12 @@
 import sys
+from glob import glob
 
 workers = 1
-loglevel = 'debug'
+loglevel = 'info'
+reload = True
+reload_extra_files = glob('board/**/*.html', recursive=True) + glob('board/**/*.css', recursive=True)
+errorlog = '-'
+accesslog = '-'
 
 
 def worker_int(worker):
